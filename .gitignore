@@ -1,0 +1,12 @@
+# Cursor / agent data
+.cursor/
+
+# OS
+.DS_Store
+
+# Node
+node_modules/
+
+# Build output
+out/
+.next/

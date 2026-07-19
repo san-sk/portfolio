@@ -1,39 +1,41 @@
-# Santhanam K — Portfolio & Resume
+# Santhanam K — Portfolio
 
-A modern, animated personal portfolio and an ATS-friendly 2-page resume.
+A premium, engineering-focused portfolio for a Senior Android Engineer. The
+experience is built around two hand-crafted "shells":
 
-## Files
+- **Desktop** → an engineer's IDE (window chrome, activity rail, file tabs, status bar).
+- **Mobile** → a native-feeling Android app (Material top app bar + bottom navigation).
 
-- `index.html` — Portfolio homepage (hero, work, skills, timeline, contact) with dark mode, scroll reveal, marquee, counter animations, cursor spotlight, and card tilt.
-- `resume.html` — ATS-optimized resume, tuned to fit two A4 pages when printed.
-- `styles.css` — Shared design system: light/dark tokens, motion, print rules.
-
-## Features
-
-- **Dark mode** — respects `prefers-color-scheme` and remembers your choice.
-- **Motion** — reveal-on-scroll, animated counters, gradient shift, cycling role words, 3D card tilt, marquee tech stack.
-- **Performance-friendly** — vanilla HTML/CSS/JS, no build step, respects `prefers-reduced-motion`.
-- **ATS-safe resume** — single-column semantic HTML, standard headings, keyword-rich skills, print rules that flatten colors and fit A4 in 2 pages.
-
-## Editing
-
-Open the HTML files in any editor and update text directly. All colors, spacing, and motion tokens live at the top of `styles.css` under `:root` and `[data-theme="dark"]`.
-
-## Exporting the resume
-
-1. Open `resume.html` in Chrome or Edge.
-2. Click **Download PDF** (or use `Cmd/Ctrl + P`).
-3. Set: **Destination: Save as PDF**, **Paper: A4**, **Margins: Default**, **Background graphics: off** (for the cleanest ATS output).
-
-## Local preview
-
-Any static server works. For example:
-
-```bash
-python3 -m http.server 4000
-# then open http://localhost:4000
-```
+The site lives in [`app-next/`](./app-next).
 
 ## Tech
 
-HTML5, modern CSS (custom properties, `backdrop-filter`, `mask-image`, `IntersectionObserver`), vanilla JS. Fonts: Inter + JetBrains Mono via Google Fonts.
+Next.js (App Router, static export) · TypeScript · Tailwind CSS · Framer Motion ·
+Lucide Icons. Deployed to GitHub Pages via GitHub Actions.
+
+## Develop
+
+```bash
+cd app-next
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # static export to app-next/out
+```
+
+## Content
+
+Everything is data-driven and honest — no fabricated metrics. Edit the files in
+[`app-next/data`](./app-next/data):
+
+- `expertise.ts` — engineering domains (mirrors résumé skill groups)
+- `projects.ts` — featured case studies
+- `experience.ts` — timeline
+- `misc.ts` — stats + GitHub repos
+- `services.ts` — "Work with me" offerings
+- `notes.ts` — engineering notes / blog (add posts here)
+- `resume.ts` — content for the `/resume` page
+
+## Deploy
+
+Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds the static
+export and publishes it to GitHub Pages.
