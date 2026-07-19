@@ -1,7 +1,16 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, FileText, Github, Monitor, Smartphone } from "lucide-react";
+import {
+  ArrowRight,
+  FileText,
+  Gauge,
+  Github,
+  Layers3,
+  Monitor,
+  Smartphone,
+} from "lucide-react";
 import { PlatformGreeter } from "@/components/magic/platform-greeter";
 import { AuroraBackground } from "@/components/magic/aurora-background";
 import { GradientText } from "@/components/magic/gradient-text";
@@ -11,6 +20,8 @@ import { Button } from "@/components/ui/button";
 import { stats } from "@/data/misc";
 import { site } from "@/lib/site";
 import { asset } from "@/lib/utils";
+import { setViewMode } from "@/lib/view";
+import type { ViewMode } from "@/lib/use-view-mode";
 
 const container = {
   hidden: {},
@@ -29,8 +40,25 @@ const GUTTER = ["01", "02", "03", "04", "05", "06", "07"];
 
 export function Hero() {
   const reduce = useReducedMotion();
+  // First-time visitors (no ?view param, no remembered choice) are asked to
+  // pick a pace right here in the hero instead of via a modal or a splash gate.
+  const [asking, setAsking] = useState(false);
+
+  useEffect(() => {
+    setAsking(document.documentElement.getAttribute("data-view-ask") === "1");
+  }, []);
+
   const jump = (href: string) =>
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+
+  const enter = (mode: ViewMode) => {
+    setViewMode(mode);
+    setAsking(false);
+    // Let the mode's CSS settle, then glide into the content.
+    requestAnimationFrame(() =>
+      document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" }),
+    );
+  };
 
   return (
     <section
@@ -109,48 +137,88 @@ export function Hero() {
             people never notice.
           </motion.p>
 
-          <motion.div
-            variants={reduce ? undefined : item}
-            className="mt-10 flex flex-wrap items-center gap-3"
-          >
-            <div className="contents" data-lite-hide>
-              <Magnetic>
-                <Button size="lg" onClick={() => jump("#projects")}>
-                  View my work
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                </Button>
-              </Magnetic>
-            </div>
-            <div className="contents" data-lite-hide>
-              <Magnetic strength={0.25}>
-                <Button
-                  size="lg"
-                  variant="secondary"
-                  onClick={() => (window.location.href = asset("/resume"))}
-                >
-                  <FileText className="h-4 w-4" />
-                  View résumé
-                </Button>
-              </Magnetic>
-            </div>
-            <div data-lite-only>
-              <Magnetic>
-                <Button size="lg" onClick={() => jump("#contact")}>
-                  Get in touch
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                </Button>
-              </Magnetic>
-            </div>
-            <a
-              href={site.socials.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub profile"
-              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-border bg-surface/60 text-muted-foreground transition-colors hover:border-accent/50 hover:text-foreground"
+          {asking ? (
+            <motion.div
+              variants={reduce ? undefined : item}
+              className="mt-10"
             >
-              <Github className="h-5 w-5" />
-            </a>
-          </motion.div>
+              <p className="font-mono text-sm text-muted-foreground">
+                <span className="text-accent">{"// "}</span>
+                Short on time, or here to dig in?
+              </p>
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                <Magnetic>
+                  <Button size="lg" onClick={() => enter("full")}>
+                    <Layers3 className="h-4 w-4" />
+                    Full tour
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                  </Button>
+                </Magnetic>
+                <Magnetic strength={0.25}>
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    onClick={() => enter("lite")}
+                  >
+                    <Gauge className="h-4 w-4" />
+                    Quick look
+                  </Button>
+                </Magnetic>
+                <a
+                  href={site.socials.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub profile"
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-border bg-surface/60 text-muted-foreground transition-colors hover:border-accent/50 hover:text-foreground"
+                >
+                  <Github className="h-5 w-5" />
+                </a>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              variants={reduce ? undefined : item}
+              className="mt-10 flex flex-wrap items-center gap-3"
+            >
+              <div className="contents" data-lite-hide>
+                <Magnetic>
+                  <Button size="lg" onClick={() => jump("#projects")}>
+                    View my work
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                  </Button>
+                </Magnetic>
+              </div>
+              <div className="contents" data-lite-hide>
+                <Magnetic strength={0.25}>
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    onClick={() => (window.location.href = asset("/resume"))}
+                  >
+                    <FileText className="h-4 w-4" />
+                    View résumé
+                  </Button>
+                </Magnetic>
+              </div>
+              <div data-lite-only>
+                <Magnetic>
+                  <Button size="lg" onClick={() => jump("#contact")}>
+                    Get in touch
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                  </Button>
+                </Magnetic>
+              </div>
+              <a
+                href={site.socials.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub profile"
+                className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-border bg-surface/60 text-muted-foreground transition-colors hover:border-accent/50 hover:text-foreground"
+              >
+                <Github className="h-5 w-5" />
+              </a>
+            </motion.div>
+          )}
 
           <motion.dl
             variants={reduce ? undefined : item}
