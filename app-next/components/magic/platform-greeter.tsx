@@ -16,7 +16,16 @@ const greetings = [
   "AI-first, always.",
 ];
 
-export function PlatformGreeter({ className }: { className?: string }) {
+export type GreeterPhase = "throw" | "catch";
+
+export function PlatformGreeter({
+  className,
+  phase,
+}: {
+  className?: string;
+  /** "throw" launches the Apple up; "catch" drops it in and settles it. */
+  phase?: GreeterPhase;
+}) {
   const reduce = useReducedMotion();
   const [i, setI] = useState(0);
 
@@ -25,6 +34,61 @@ export function PlatformGreeter({ className }: { className?: string }) {
     const id = setInterval(() => setI((v) => (v + 1) % greetings.length), 2600);
     return () => clearInterval(id);
   }, [reduce]);
+
+  const active = !reduce && phase;
+
+  // The Apple is the "ball": tossed up on throw, dropped in + settled on catch.
+  const appleAnim = active
+    ? phase === "throw"
+      ? {
+          x: [0, -14, 40],
+          y: [0, 18, -340],
+          rotate: [-6, -22, 260],
+          scale: [1, 1.15, 0.35],
+          opacity: [1, 1, 0],
+        }
+      : {
+          x: [70, 34, 0],
+          y: [-360, -70, 0],
+          rotate: [260, 46, -6],
+          scale: [0.35, 0.95, 1],
+          opacity: [0, 1, 1],
+        }
+    : reduce
+      ? undefined
+      : { x: [0, -16, 0, 0], rotate: [-6, -12, -6, -6] };
+
+  const appleTrans = active
+    ? phase === "throw"
+      ? { duration: 0.95, ease: [0.5, 0, 0.9, 0.4] as const }
+      : { duration: 1.3, ease: [0.34, 1.35, 0.5, 1] as const }
+    : { duration: 5, repeat: Infinity, repeatDelay: 0.6, ease: "easeInOut" as const };
+
+  // The robot reacts: crouch-and-launch on throw, a settle bob on catch.
+  const robotAnim = active
+    ? phase === "throw"
+      ? { y: [0, 14, -20, 0], rotate: [0, -3, 5, 0] }
+      : { y: [0, -12, 0], scale: [1, 1.05, 1] }
+    : reduce
+      ? undefined
+      : { y: [0, -7, 0] };
+
+  const robotTrans = active
+    ? { duration: 0.95, ease: "easeOut" as const }
+    : { duration: 4, repeat: Infinity, ease: "easeInOut" as const };
+
+  // The throwing/catching arm swings up on cue, otherwise waves on a loop.
+  const armAnim = active
+    ? phase === "throw"
+      ? { rotate: [0, 12, -75, -10] }
+      : { rotate: [-45, -30, 0] }
+    : reduce
+      ? undefined
+      : { rotate: [0, -26, 8, -26, 0] };
+
+  const armTrans = active
+    ? { duration: 0.9, ease: "easeOut" as const }
+    : { duration: 1.8, repeat: Infinity, repeatDelay: 1.3, ease: "easeInOut" as const };
 
   return (
     <div className={cn("pointer-events-none relative select-none", className)}>
@@ -53,15 +117,8 @@ export function PlatformGreeter({ className }: { className?: string }) {
           viewBox="0 0 384 512"
           aria-hidden
           className="absolute bottom-8 left-[6%] z-0 w-[34%] max-w-[64px] text-foreground/35 drop-shadow-[0_6px_16px_rgba(0,0,0,0.25)]"
-          animate={
-            reduce ? undefined : { x: [0, -16, 0, 0], rotate: [-6, -12, -6, -6] }
-          }
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            repeatDelay: 0.6,
-            ease: "easeInOut",
-          }}
+          animate={appleAnim}
+          transition={appleTrans}
         >
           <path
             fill="currentColor"
@@ -75,8 +132,8 @@ export function PlatformGreeter({ className }: { className?: string }) {
           className="relative z-10 w-[88%] max-w-[176px] text-accent drop-shadow-[0_10px_30px_rgba(16,185,129,0.25)]"
           role="img"
           aria-label="A friendly robot waving hello"
-          animate={reduce ? undefined : { y: [0, -7, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          animate={robotAnim}
+          transition={robotTrans}
         >
           <g stroke="currentColor" strokeWidth="6" strokeLinecap="round" fill="none">
             <line x1="72" y1="52" x2="60" y2="33" />
@@ -91,13 +148,8 @@ export function PlatformGreeter({ className }: { className?: string }) {
           <rect x="150" y="124" width="16" height="54" rx="8" fill="currentColor" />
           <motion.g
             style={{ transformBox: "fill-box", transformOrigin: "bottom center" }}
-            animate={reduce ? undefined : { rotate: [0, -26, 8, -26, 0] }}
-            transition={{
-              duration: 1.8,
-              repeat: Infinity,
-              repeatDelay: 1.3,
-              ease: "easeInOut",
-            }}
+            animate={armAnim}
+            transition={armTrans}
           >
             <rect x="34" y="92" width="16" height="52" rx="8" fill="currentColor" />
           </motion.g>

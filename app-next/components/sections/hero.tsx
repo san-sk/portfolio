@@ -2,15 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import {
-  ArrowRight,
-  FileText,
-  Gauge,
-  Github,
-  Layers3,
-  Monitor,
-  Smartphone,
-} from "lucide-react";
+import { ArrowRight, FileText, Github, Monitor, Smartphone } from "lucide-react";
 import { PlatformGreeter } from "@/components/magic/platform-greeter";
 import { AuroraBackground } from "@/components/magic/aurora-background";
 import { GradientText } from "@/components/magic/gradient-text";
@@ -20,8 +12,6 @@ import { Button } from "@/components/ui/button";
 import { stats } from "@/data/misc";
 import { site } from "@/lib/site";
 import { asset } from "@/lib/utils";
-import { setViewMode } from "@/lib/view";
-import type { ViewMode } from "@/lib/use-view-mode";
 
 const container = {
   hidden: {},
@@ -40,25 +30,23 @@ const GUTTER = ["01", "02", "03", "04", "05", "06", "07"];
 
 export function Hero() {
   const reduce = useReducedMotion();
-  // First-time visitors (no ?view param, no remembered choice) are asked to
-  // pick a pace right here in the hero instead of via a modal or a splash gate.
-  const [asking, setAsking] = useState(false);
+  // When the startup splash throws the Apple, the hero greeter's Android catches
+  // it (Apple drops in + settles). Triggered by the "app:entered" event.
+  const [caught, setCaught] = useState(false);
 
   useEffect(() => {
-    setAsking(document.documentElement.getAttribute("data-view-ask") === "1");
-  }, []);
+    if (reduce) return;
+    const onEntered = () => {
+      setCaught(true);
+      // Resume the idle hide-and-seek loop after the catch settles.
+      window.setTimeout(() => setCaught(false), 1600);
+    };
+    window.addEventListener("app:entered", onEntered);
+    return () => window.removeEventListener("app:entered", onEntered);
+  }, [reduce]);
 
   const jump = (href: string) =>
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-
-  const enter = (mode: ViewMode) => {
-    setViewMode(mode);
-    setAsking(false);
-    // Let the mode's CSS settle, then glide into the content.
-    requestAnimationFrame(() =>
-      document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" }),
-    );
-  };
 
   return (
     <section
@@ -84,6 +72,18 @@ export function Hero() {
           animate={reduce ? undefined : "visible"}
           className="max-w-5xl"
         >
+          {/* Greeter sits at the top on mobile/tablet (desktop floats it to the
+              right). Keeps it near the top of the screen where the Apple lands. */}
+          <motion.div
+            variants={reduce ? undefined : item}
+            className="mb-8 flex justify-center xl:hidden"
+          >
+            <PlatformGreeter
+              className="w-[160px]"
+              phase={caught ? "catch" : undefined}
+            />
+          </motion.div>
+
           <motion.div variants={reduce ? undefined : item}>
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/50 px-3.5 py-1.5 font-mono text-xs text-muted-foreground">
               {/* Desktop viewers → nudge to mobile */}
@@ -137,88 +137,48 @@ export function Hero() {
             people never notice.
           </motion.p>
 
-          {asking ? (
-            <motion.div
-              variants={reduce ? undefined : item}
-              className="mt-10"
-            >
-              <p className="font-mono text-sm text-muted-foreground">
-                <span className="text-accent">{"// "}</span>
-                Short on time, or here to dig in?
-              </p>
-              <div className="mt-4 flex flex-wrap items-center gap-3">
-                <Magnetic>
-                  <Button size="lg" onClick={() => enter("full")}>
-                    <Layers3 className="h-4 w-4" />
-                    Full tour
-                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                  </Button>
-                </Magnetic>
-                <Magnetic strength={0.25}>
-                  <Button
-                    size="lg"
-                    variant="secondary"
-                    onClick={() => enter("lite")}
-                  >
-                    <Gauge className="h-4 w-4" />
-                    Quick look
-                  </Button>
-                </Magnetic>
-                <a
-                  href={site.socials.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub profile"
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-border bg-surface/60 text-muted-foreground transition-colors hover:border-accent/50 hover:text-foreground"
+          <motion.div
+            variants={reduce ? undefined : item}
+            className="mt-10 flex flex-wrap items-center gap-3"
+          >
+            <div className="contents" data-lite-hide>
+              <Magnetic>
+                <Button size="lg" onClick={() => jump("#projects")}>
+                  View my work
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </Button>
+              </Magnetic>
+            </div>
+            <div className="contents" data-lite-hide>
+              <Magnetic strength={0.25}>
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  onClick={() => (window.location.href = asset("/resume"))}
                 >
-                  <Github className="h-5 w-5" />
-                </a>
-              </div>
-            </motion.div>
-          ) : (
-            <motion.div
-              variants={reduce ? undefined : item}
-              className="mt-10 flex flex-wrap items-center gap-3"
+                  <FileText className="h-4 w-4" />
+                  View résumé
+                </Button>
+              </Magnetic>
+            </div>
+            <div data-lite-only>
+              <Magnetic>
+                <Button size="lg" onClick={() => jump("#contact")}>
+                  Get in touch
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </Button>
+              </Magnetic>
+            </div>
+            <a
+              href={site.socials.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub profile"
+              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-border bg-surface/60 text-muted-foreground transition-colors hover:border-accent/50 hover:text-foreground"
             >
-              <div className="contents" data-lite-hide>
-                <Magnetic>
-                  <Button size="lg" onClick={() => jump("#projects")}>
-                    View my work
-                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                  </Button>
-                </Magnetic>
-              </div>
-              <div className="contents" data-lite-hide>
-                <Magnetic strength={0.25}>
-                  <Button
-                    size="lg"
-                    variant="secondary"
-                    onClick={() => (window.location.href = asset("/resume"))}
-                  >
-                    <FileText className="h-4 w-4" />
-                    View résumé
-                  </Button>
-                </Magnetic>
-              </div>
-              <div data-lite-only>
-                <Magnetic>
-                  <Button size="lg" onClick={() => jump("#contact")}>
-                    Get in touch
-                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                  </Button>
-                </Magnetic>
-              </div>
-              <a
-                href={site.socials.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub profile"
-                className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-border bg-surface/60 text-muted-foreground transition-colors hover:border-accent/50 hover:text-foreground"
-              >
-                <Github className="h-5 w-5" />
-              </a>
-            </motion.div>
-          )}
+              <Github className="h-5 w-5" />
+            </a>
+          </motion.div>
 
           <motion.dl
             variants={reduce ? undefined : item}
@@ -235,22 +195,15 @@ export function Hero() {
               </div>
             ))}
           </motion.dl>
-
-          {/* Inline greeter for mobile / tablet — the headline fills the width
-              on small screens, so there's no right whitespace to float into
-              without overlapping the text. */}
-          <motion.div
-            variants={reduce ? undefined : item}
-            className="mt-14 flex justify-center xl:hidden"
-          >
-            <PlatformGreeter className="w-[188px]" />
-          </motion.div>
         </motion.div>
       </div>
 
       {/* Android + Apple greeter floating in the right whitespace (desktop only,
           where the layout actually leaves room beside the headline) */}
-      <PlatformGreeter className="absolute right-24 top-[37%] z-10 hidden w-[248px] -translate-y-1/2 xl:block 2xl:right-40 2xl:w-[288px]" />
+      <PlatformGreeter
+        className="absolute right-24 top-[37%] z-10 hidden w-[248px] -translate-y-1/2 xl:block 2xl:right-40 2xl:w-[288px]"
+        phase={caught ? "catch" : undefined}
+      />
     </section>
   );
 }
