@@ -20,12 +20,13 @@ import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { Avatar } from "@/components/ui/avatar";
 import { ThemeToggle } from "@/components/nav/theme-toggle";
+import { ViewToggle } from "@/components/nav/view-toggle";
 import { CommandPalette } from "@/components/nav/command-palette";
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 /* ---------------- Window title bar ---------------- */
-function TitleBar({ onSearch }: { onSearch: () => void }) {
+function TitleBar({ onSearch, home }: { onSearch: () => void; home: boolean }) {
   return (
     <div className="sticky top-0 z-50 flex h-14 items-center justify-between border-b border-border bg-surface/80 px-3 backdrop-blur-md sm:px-4 lg:h-10 print:hidden">
       <div className="flex items-center gap-3">
@@ -60,6 +61,8 @@ function TitleBar({ onSearch }: { onSearch: () => void }) {
       </button>
 
       <div className="flex items-center gap-1">
+        {/* Mobile: view switch lives here (desktop uses the status bar) */}
+        {home && <ViewToggle className="mr-1 lg:hidden" />}
         <button
           onClick={onSearch}
           aria-label="Search"
@@ -238,7 +241,7 @@ function TabStrip({ activeId }: { activeId: string }) {
 }
 
 /* ---------------- Bottom status bar ---------------- */
-function StatusBar({ activeId }: { activeId: string }) {
+function StatusBar({ activeId, home }: { activeId: string; home: boolean }) {
   const [clock, setClock] = useState("");
   useEffect(() => {
     const tick = () =>
@@ -266,6 +269,12 @@ function StatusBar({ activeId }: { activeId: string }) {
         <span className="truncate">▸ {activeLabel}</span>
       </div>
       <div className="flex items-center gap-3">
+        {home && (
+          <span className="flex items-center gap-1.5">
+            <span className="text-muted-foreground/60">view</span>
+            <ViewToggle />
+          </span>
+        )}
         <span className="hidden sm:inline">UTF-8</span>
         <span className="hidden sm:inline">LF</span>
         <span className="flex items-center gap-1">
@@ -383,11 +392,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen">
-      <TitleBar onSearch={() => setPaletteOpen(true)} />
+      <TitleBar onSearch={() => setPaletteOpen(true)} home={isHome} />
       <ActivityRail onSearch={() => setPaletteOpen(true)} />
       {isHome && <TabStrip activeId={activeId} />}
       <main className="pb-24 lg:pb-10 lg:pl-14 print:!p-0">{children}</main>
-      <StatusBar activeId={activeId} />
+      <StatusBar activeId={activeId} home={isHome} />
       <BottomNav activeId={activeId} />
       <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
     </div>

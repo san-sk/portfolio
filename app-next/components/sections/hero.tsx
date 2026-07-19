@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, FileText, Github, Monitor, Smartphone } from "lucide-react";
 import { PlatformGreeter } from "@/components/magic/platform-greeter";
@@ -29,6 +30,21 @@ const GUTTER = ["01", "02", "03", "04", "05", "06", "07"];
 
 export function Hero() {
   const reduce = useReducedMotion();
+  // When the startup splash throws the Apple, the hero greeter's Android catches
+  // it (Apple drops in + settles). Triggered by the "app:entered" event.
+  const [caught, setCaught] = useState(false);
+
+  useEffect(() => {
+    if (reduce) return;
+    const onEntered = () => {
+      setCaught(true);
+      // Resume the idle hide-and-seek loop after the catch settles.
+      window.setTimeout(() => setCaught(false), 1600);
+    };
+    window.addEventListener("app:entered", onEntered);
+    return () => window.removeEventListener("app:entered", onEntered);
+  }, [reduce]);
+
   const jump = (href: string) =>
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
 
@@ -56,6 +72,18 @@ export function Hero() {
           animate={reduce ? undefined : "visible"}
           className="max-w-5xl"
         >
+          {/* Greeter sits at the top on mobile/tablet (desktop floats it to the
+              right). Keeps it near the top of the screen where the Apple lands. */}
+          <motion.div
+            variants={reduce ? undefined : item}
+            className="mb-8 flex justify-center xl:hidden"
+          >
+            <PlatformGreeter
+              className="w-[160px]"
+              phase={caught ? "catch" : undefined}
+            />
+          </motion.div>
+
           <motion.div variants={reduce ? undefined : item}>
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/50 px-3.5 py-1.5 font-mono text-xs text-muted-foreground">
               {/* Desktop viewers → nudge to mobile */}
@@ -167,22 +195,15 @@ export function Hero() {
               </div>
             ))}
           </motion.dl>
-
-          {/* Inline greeter for mobile / tablet — the headline fills the width
-              on small screens, so there's no right whitespace to float into
-              without overlapping the text. */}
-          <motion.div
-            variants={reduce ? undefined : item}
-            className="mt-14 flex justify-center xl:hidden"
-          >
-            <PlatformGreeter className="w-[188px]" />
-          </motion.div>
         </motion.div>
       </div>
 
       {/* Android + Apple greeter floating in the right whitespace (desktop only,
           where the layout actually leaves room beside the headline) */}
-      <PlatformGreeter className="absolute right-24 top-[37%] z-10 hidden w-[248px] -translate-y-1/2 xl:block 2xl:right-40 2xl:w-[288px]" />
+      <PlatformGreeter
+        className="absolute right-24 top-[37%] z-10 hidden w-[248px] -translate-y-1/2 xl:block 2xl:right-40 2xl:w-[288px]"
+        phase={caught ? "catch" : undefined}
+      />
     </section>
   );
 }
