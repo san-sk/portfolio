@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" role="img" aria-label="Santhanam K">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.38"/>
+      <stop offset="55%" stop-color="#0a0f0d" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ink" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ecfdf5"/>
+      <stop offset="100%" stop-color="#6ee7b7"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="#0a0f0d"/>
+  <rect width="400" height="400" fill="url(#glow)"/>
+  <circle cx="200" cy="200" r="152" fill="none" stroke="#10b981" stroke-opacity="0.18" stroke-width="1.5"/>
+  <text x="50%" y="52%" text-anchor="middle" dominant-baseline="central"
+    font-family="'JetBrains Mono','SFMono-Regular',ui-monospace,monospace"
+    font-size="150" font-weight="700" fill="url(#ink)">SK</text>
+</svg>
