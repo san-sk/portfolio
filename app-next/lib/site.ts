@@ -6,7 +6,7 @@ export const site = {
   description:
     "Senior Android Engineer with 7+ years crafting secure, high-performance mobile products with Kotlin, Jetpack Compose, and Compose Multiplatform.",
   url: "https://san-sk.github.io/Portfolio",
-  email: "sanskjob@gmail.com",
+  email: "santhanamk.dev@gmail.com",
   location: "India · Remote-friendly",
   // Swap this file (app-next/public) with a real headshot (e.g. /profile.jpg) later.
   avatar: "/profile.svg",

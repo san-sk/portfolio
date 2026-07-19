@@ -155,12 +155,22 @@ export function Hero() {
               </div>
             ))}
           </motion.dl>
+
+          {/* Inline greeter for mobile / tablet — the headline fills the width
+              on small screens, so there's no right whitespace to float into
+              without overlapping the text. */}
+          <motion.div
+            variants={reduce ? undefined : item}
+            className="mt-14 flex justify-center xl:hidden"
+          >
+            <PlatformGreeter className="w-[188px]" />
+          </motion.div>
         </motion.div>
       </div>
 
-      {/* Android + Apple greeter floating in the right whitespace — smaller on
-          mobile, growing on larger screens */}
-      <PlatformGreeter className="absolute right-2 top-[32%] z-10 w-[92px] -translate-y-1/2 sm:right-6 sm:w-[128px] md:right-10 md:top-[36%] md:w-[168px] xl:right-24 xl:top-[37%] xl:w-[248px] 2xl:right-40 2xl:w-[288px]" />
+      {/* Android + Apple greeter floating in the right whitespace (desktop only,
+          where the layout actually leaves room beside the headline) */}
+      <PlatformGreeter className="absolute right-24 top-[37%] z-10 hidden w-[248px] -translate-y-1/2 xl:block 2xl:right-40 2xl:w-[288px]" />
     </section>
   );
 }
