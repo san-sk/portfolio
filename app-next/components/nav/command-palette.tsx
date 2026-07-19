@@ -17,10 +17,13 @@ import {
   Mail,
   Search,
   Sparkles,
+  Gauge,
+  Layers3,
 } from "lucide-react";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { useViewMode } from "@/lib/use-view-mode";
+import { setViewMode } from "@/lib/view";
 
 interface Item {
   label: string;
@@ -30,6 +33,8 @@ interface Item {
   keywords?: string;
   external?: boolean;
   liteHidden?: boolean;
+  /** Only shown when the current view differs from this target. */
+  viewTarget?: "lite" | "full";
 }
 
 export function CommandPalette({
@@ -70,6 +75,8 @@ export function CommandPalette({
       { label: "GitHub", hint: `@${site.socials.githubUser}`, icon: Github, action: () => go(site.socials.github), external: true },
       { label: "LinkedIn", hint: "Connect", icon: Linkedin, action: () => go(site.socials.linkedin), external: true },
       { label: "Email me", hint: site.email, icon: Mail, action: () => go(`mailto:${site.email}`), external: true },
+      { label: "Switch to Full view", hint: "Show everything", icon: Layers3, action: () => { setViewMode("full"); onOpenChange(false); }, keywords: "detail projects experience resume full", viewTarget: "full" },
+      { label: "Switch to Lite view", hint: "Quick highlights", icon: Gauge, action: () => { setViewMode("lite"); onOpenChange(false); }, keywords: "detail minimal quick short lite", viewTarget: "lite" },
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
@@ -78,6 +85,7 @@ export function CommandPalette({
   const filtered = items.filter(
     (i) =>
       (mode === "full" || !i.liteHidden) &&
+      (!i.viewTarget || i.viewTarget !== mode) &&
       (i.label + i.hint + (i.keywords ?? "")).toLowerCase().includes(query.toLowerCase()),
   );
 

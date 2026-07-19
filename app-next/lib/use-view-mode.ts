@@ -13,11 +13,16 @@ export function useViewMode(): ViewMode {
   const [mode, setMode] = useState<ViewMode>("full");
 
   useEffect(() => {
-    setMode(
-      document.documentElement.getAttribute("data-view") === "lite"
-        ? "lite"
-        : "full",
-    );
+    const sync = () =>
+      setMode(
+        document.documentElement.getAttribute("data-view") === "lite"
+          ? "lite"
+          : "full",
+      );
+    sync();
+    // The view chooser applies a choice at runtime; keep consumers in sync.
+    window.addEventListener("viewchange", sync);
+    return () => window.removeEventListener("viewchange", sync);
   }, []);
 
   return mode;

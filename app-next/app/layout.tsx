@@ -17,10 +17,12 @@ const jetbrains = JetBrains_Mono({
   display: "swap",
 });
 
-/** Sets `data-view` on <html> from the `?view=` query param before paint so the
- *  lite profile renders without a flash of the full page. */
+/** Sets `data-view` on <html> before paint (no flash) from, in order of
+ *  precedence: the `?view=` query param, a remembered choice, else `full`.
+ *  When neither a param nor a stored choice exists it also flags `data-view-ask`
+ *  so the home page can offer a lite/full chooser. */
 const viewInitScript = `
-(function(){try{var v=new URLSearchParams(location.search).get('view');document.documentElement.setAttribute('data-view',v==='lite'?'lite':'full');}catch(e){document.documentElement.setAttribute('data-view','full');}})();
+(function(){try{var q=new URLSearchParams(location.search).get('view');var s=null;try{s=localStorage.getItem('view-pref');}catch(e){}var v=(q==='lite'||q==='full')?q:((s==='lite'||s==='full')?s:'full');document.documentElement.setAttribute('data-view',v);if(!q&&s!=='lite'&&s!=='full')document.documentElement.setAttribute('data-view-ask','1');}catch(e){document.documentElement.setAttribute('data-view','full');}})();
 `;
 
 export const metadata: Metadata = {
