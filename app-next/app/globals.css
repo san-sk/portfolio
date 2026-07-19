@@ -210,6 +210,25 @@
   }
 }
 
+/* View mode — `?view=lite` trims the page to a lightweight profile by
+   hiding Projects, Experience and every résumé entry point. Default is `full`. */
+html[data-view="lite"] #projects,
+html[data-view="lite"] #experience,
+html[data-view="lite"] [data-lite-hide] {
+  display: none !important;
+}
+/* Keep the mobile bottom nav evenly spaced after dropping the Projects tab. */
+html[data-view="lite"] nav[data-bottomnav] {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+/* Elements shown only in the lite profile. */
+[data-lite-only] {
+  display: none !important;
+}
+html[data-view="lite"] [data-lite-only] {
+  display: contents !important;
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,

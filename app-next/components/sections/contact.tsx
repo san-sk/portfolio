@@ -35,15 +35,7 @@ export function Contact() {
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 0.61, 0.36, 1] }}
         >
-          <span className="eyebrow mx-auto">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/70" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
-            </span>
-            Open to opportunities
-          </span>
-
-          <h2 className="mx-auto mt-6 max-w-3xl text-balance text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
+          <h2 className="mx-auto max-w-3xl text-balance text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
             Let&rsquo;s build something
             <br />
             worth <span className="text-gradient">caring about.</span>
@@ -100,8 +92,8 @@ export function Contact() {
           </div>
 
           <p className="mt-14 font-mono text-xs text-muted-foreground">
-            © {new Date().getFullYear()} {site.fullName} — built with Next.js &amp;
-            Compose-grade attention to detail.
+            © {new Date().getFullYear()} {site.name} — engineered with Kotlin care,
+            not a template in sight.
           </p>
         </motion.div>
       </div>

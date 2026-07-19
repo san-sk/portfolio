@@ -17,6 +17,12 @@ const jetbrains = JetBrains_Mono({
   display: "swap",
 });
 
+/** Sets `data-view` on <html> from the `?view=` query param before paint so the
+ *  lite profile renders without a flash of the full page. */
+const viewInitScript = `
+(function(){try{var v=new URLSearchParams(location.search).get('view');document.documentElement.setAttribute('data-view',v==='lite'?'lite':'full');}catch(e){document.documentElement.setAttribute('data-view','full');}})();
+`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
@@ -89,6 +95,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${jetbrains.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <script dangerouslySetInnerHTML={{ __html: viewInitScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -41,6 +41,8 @@ export function About() {
         </>
       }
       intro="Some engineers count years. I count the moments a product finally feels right — then chase the next one."
+      collapsible
+      collapsedHeight={420}
     >
       <Reveal className="mb-4">
         <div className="card-surface flex flex-col items-center gap-6 p-6 text-center sm:flex-row sm:items-center sm:p-8 sm:text-left">

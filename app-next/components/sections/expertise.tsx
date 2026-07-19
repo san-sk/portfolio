@@ -14,43 +14,56 @@ export function Expertise() {
       eyebrow="Engineering Expertise"
       title="The stack I actually ship with"
       intro="Grouped the way my résumé is — every tool here is one I can defend in a room, not a logo wall."
+      collapsible
+      collapsedHeight={420}
     >
-      {/* Tier 1 — signature domains */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {featured.map((d, i) => {
-          const Icon = d.icon;
-          return (
-            <Reveal key={d.title} delay={i}>
-              <SpotlightCard className="flex h-full flex-col p-6">
-                <div className="mb-4 flex items-center justify-between gap-3">
-                  <span className="grid h-11 w-11 place-items-center rounded-xl border border-border bg-muted/50 text-accent">
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  {d.accentNote && (
-                    <span className="text-right text-[11px] font-medium uppercase tracking-wider text-accent/80">
-                      {d.accentNote}
-                    </span>
-                  )}
-                </div>
-                <h3 className="text-lg font-semibold tracking-tight">{d.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {d.tagline}
-                </p>
-                <ul className="mt-auto flex flex-wrap gap-1.5 pt-5">
-                  {d.skills.map((s) => (
-                    <li
-                      key={s}
-                      className="rounded-full border border-border bg-background/40 px-2.5 py-1 text-xs text-muted-foreground transition-colors group-hover/spotlight:border-accent/30"
-                    >
-                      {s}
-                    </li>
-                  ))}
-                </ul>
-              </SpotlightCard>
-            </Reveal>
-          );
-        })}
-      </div>
+      {/* Tier 1 — signature domains, one continuous auto-scrolling row */}
+      <Reveal>
+        <div className="group relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_4%,#000_96%,transparent)] motion-reduce:overflow-x-auto motion-reduce:[mask-image:none]">
+          <ul
+            className="flex w-max animate-marquee items-stretch group-hover:[animation-play-state:paused] motion-reduce:animate-none"
+            style={{ "--marquee-duration": "44s" } as React.CSSProperties}
+          >
+            {[...featured, ...featured].map((d, i) => {
+              const Icon = d.icon;
+              return (
+                <li
+                  key={d.title + i}
+                  aria-hidden={i >= featured.length}
+                  className="mr-4 w-[300px] shrink-0 sm:w-[340px]"
+                >
+                  <SpotlightCard className="flex h-full flex-col p-6">
+                    <div className="mb-4 flex items-center justify-between gap-3">
+                      <span className="grid h-11 w-11 place-items-center rounded-xl border border-border bg-muted/50 text-accent">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      {d.accentNote && (
+                        <span className="text-right text-[11px] font-medium uppercase tracking-wider text-accent/80">
+                          {d.accentNote}
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="text-lg font-semibold tracking-tight">{d.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {d.tagline}
+                    </p>
+                    <ul className="mt-auto flex flex-wrap gap-1.5 pt-5">
+                      {d.skills.map((s) => (
+                        <li
+                          key={s}
+                          className="rounded-full border border-border bg-background/40 px-2.5 py-1 text-xs text-muted-foreground transition-colors group-hover/spotlight:border-accent/30"
+                        >
+                          {s}
+                        </li>
+                      ))}
+                    </ul>
+                  </SpotlightCard>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </Reveal>
 
       {/* Tier 2 — full toolkit reference */}
       <Reveal className="mt-4" delay={2}>

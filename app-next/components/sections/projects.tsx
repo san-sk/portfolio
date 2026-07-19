@@ -159,6 +159,8 @@ export function Projects() {
       eyebrow="Featured Work"
       title="Products, not portfolio filler"
       intro="A few things I&rsquo;ve shipped — framed the way I think about them: a real problem, a considered approach, a measurable result."
+      collapsible
+      collapsedHeight={460}
     >
       <div className="space-y-6">
         {projects

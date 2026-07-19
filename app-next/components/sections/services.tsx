@@ -14,6 +14,7 @@ export function Services() {
       eyebrow="Work with me"
       title="Ways we can build together"
       intro="Beyond full-time work, I mentor engineers, build apps, and share what I learn. If any of these fit, my inbox is open."
+      collapsible
     >
       <div className="grid gap-4 md:grid-cols-2">
         {services.map((s, i) => {

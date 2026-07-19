@@ -132,6 +132,7 @@ function ActivityRail({ onSearch }: { onSearch: () => void }) {
               <Link
                 key={t.label}
                 href={t.href!}
+                data-lite-hide={t.href === "/resume" ? "" : undefined}
                 className={cn(cls, active && "bg-muted text-accent")}
                 aria-label={t.label}
               >
@@ -187,6 +188,9 @@ function TabStrip({ activeId }: { activeId: string }) {
             <button
               key={n.href}
               onClick={() => jump(n.href)}
+              data-lite-hide={
+                n.href === "#projects" || n.href === "#experience" ? "" : undefined
+              }
               className={cn(
                 "group relative flex shrink-0 items-center gap-2 border-r border-border px-4 py-2.5 font-mono text-xs transition-colors",
                 active
@@ -222,6 +226,7 @@ function TabStrip({ activeId }: { activeId: string }) {
         </Link>
         <Link
           href="/resume"
+          data-lite-hide=""
           className="flex shrink-0 items-center gap-2 border-r border-border px-4 py-2.5 font-mono text-xs text-muted-foreground transition-colors hover:bg-surface/50 hover:text-foreground"
         >
           <FileText className="h-3 w-3" />
@@ -293,6 +298,7 @@ function BottomNav({ activeId }: { activeId: string }) {
   return (
     <nav
       aria-label="Primary"
+      data-bottomnav
       className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-5 border-t border-border bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md lg:hidden print:!hidden"
     >
       {items.map((it) => {
@@ -322,14 +328,22 @@ function BottomNav({ activeId }: { activeId: string }) {
           </>
         );
         const cls = "flex flex-col items-center justify-center pb-2 pt-1.5";
+        const hide = it.href === "#projects" ? "" : undefined;
         return it.kind === "route" ? (
-          <Link key={it.label} href={it.href} className={cls} aria-label={it.label}>
+          <Link
+            key={it.label}
+            href={it.href}
+            data-lite-hide={hide}
+            className={cls}
+            aria-label={it.label}
+          >
             {inner}
           </Link>
         ) : (
           <button
             key={it.label}
             onClick={() => jump(it.href)}
+            data-lite-hide={hide}
             className={cls}
             aria-label={it.label}
           >
