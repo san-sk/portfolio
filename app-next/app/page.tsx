@@ -6,10 +6,12 @@ import { Experience } from "@/components/sections/experience";
 import { OpenSource } from "@/components/sections/open-source";
 import { Services } from "@/components/sections/services";
 import { Contact } from "@/components/sections/contact";
+import { StartupScreen } from "@/components/startup-screen";
 
 export default function Home() {
   return (
     <>
+      <StartupScreen />
       <Hero />
       <About />
       <Expertise />
