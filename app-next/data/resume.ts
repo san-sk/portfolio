@@ -42,7 +42,7 @@ export const resume = {
     {
       label: "CI/CD & Release",
       value:
-        "GitHub Actions, Jenkins, Bitrise, Azure DevOps, Play Console, Firebase App Distribution, Crashlytics",
+        "GitHub Actions, Jenkins, Play Console, Firebase App Distribution, Crashlytics",
     },
     {
       label: "AI-Assisted Dev",
@@ -51,7 +51,7 @@ export const resume = {
     },
     {
       label: "Tools",
-      value: "Git, GitHub, Bitbucket, Jira, Confluence, Figma, Postman, Android Studio, Charles Proxy",
+      value: "Git, GitHub, Bitbucket, Jira, Confluence, Figma, Postman, Android Studio",
     },
   ],
 
@@ -64,6 +64,7 @@ export const resume = {
         "Ship VPN and security features for Norton VPN, Avast VPN, and Norton 360 Security, serving 50M+ global consumers on Android.",
         "Build reactive UI with Jetpack Compose and Kotlin Coroutines/Flow, aligning to Clean Architecture and modular Gradle setup for faster feature delivery.",
         "Harden auth, kill-switch, and connection flows; reduce VPN handshake failures and improve crash-free sessions through targeted debugging and telemetry.",
+        "Built an offline-ready server-location map that stays usable without a connection, and owned VPN notification management — connection status, alerts, and kill-switch notifications.",
         "Drive AI-first workflows using local LLMs and Copilot for code review, refactoring, unit test scaffolding, and documentation, cutting routine engineering time by ~30%.",
         "Partner with QA, product, design, and platform teams to deliver on-time releases through GitHub Actions CI, code reviews, and Play Console rollout monitoring.",
       ],
@@ -125,7 +126,7 @@ export const resume = {
     {
       name: "Norton VPN & Avast VPN (Gen Digital)",
       detail:
-        "Android VPN client work on connection, kill-switch, and auth flows using Kotlin, Compose, and Coroutines.",
+        "Android VPN client work on connection, kill-switch, and auth flows, plus an offline-ready server-location map and VPN notification management, using Kotlin, Compose, and Coroutines.",
     },
     {
       name: "Norton 360 Security",

@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import { Avatar } from "@/components/ui/avatar";
 import { ThemeToggle } from "@/components/nav/theme-toggle";
 import { CommandPalette } from "@/components/nav/command-palette";
 
@@ -26,7 +27,7 @@ const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 /* ---------------- Window title bar ---------------- */
 function TitleBar({ onSearch }: { onSearch: () => void }) {
   return (
-    <div className="sticky top-0 z-50 flex h-14 items-center justify-between border-b border-border bg-surface/80 px-3 backdrop-blur-md sm:px-4 lg:h-10">
+    <div className="sticky top-0 z-50 flex h-14 items-center justify-between border-b border-border bg-surface/80 px-3 backdrop-blur-md sm:px-4 lg:h-10 print:hidden">
       <div className="flex items-center gap-3">
         {/* Desktop: macOS-style window dots */}
         <div className="hidden items-center gap-1.5 lg:flex">
@@ -36,13 +37,13 @@ function TitleBar({ onSearch }: { onSearch: () => void }) {
         </div>
         {/* Mobile: Android-app brand */}
         <Link href="/" className="flex items-center gap-2.5 lg:hidden">
-          <span className="grid h-8 w-8 place-items-center rounded-xl bg-accent font-mono text-sm font-bold text-accent-foreground">
-            S
-          </span>
+          <Avatar className="h-8 w-8" ring={false} />
           <span className="text-base font-semibold tracking-tight">
             {site.name}
           </span>
         </Link>
+        {/* Desktop: tiny avatar + path */}
+        <Avatar className="hidden h-6 w-6 lg:block" ring={false} />
         <span className="hidden font-mono text-xs text-muted-foreground lg:block">
           {site.socials.githubUser} — ~/portfolio
         </span>
@@ -100,7 +101,7 @@ function ActivityRail({ onSearch }: { onSearch: () => void }) {
   };
 
   return (
-    <aside className="fixed bottom-6 left-0 top-10 z-40 hidden w-14 flex-col items-center justify-between border-r border-border bg-surface/60 py-4 backdrop-blur-md lg:flex">
+    <aside className="fixed bottom-6 left-0 top-10 z-40 hidden w-14 flex-col items-center justify-between border-r border-border bg-surface/60 py-4 backdrop-blur-md lg:flex print:!hidden">
       <div className="flex flex-col items-center gap-1">
         <Link
           href="/"
@@ -175,7 +176,7 @@ function TabStrip({ activeId }: { activeId: string }) {
   };
 
   return (
-    <div className="sticky top-10 z-30 hidden border-b border-border bg-background/85 backdrop-blur-md lg:block lg:pl-14">
+    <div className="sticky top-10 z-30 hidden border-b border-border bg-background/85 backdrop-blur-md lg:block lg:pl-14 print:!hidden">
       <div
         ref={stripRef}
         className="no-scrollbar flex items-stretch overflow-x-auto"
@@ -250,7 +251,7 @@ function StatusBar({ activeId }: { activeId: string }) {
   const activeLabel = site.nav.find((n) => n.href.slice(1) === activeId)?.file ?? "hero.kt";
 
   return (
-    <footer className="fixed inset-x-0 bottom-0 z-50 hidden h-6 items-center justify-between border-t border-border bg-surface/90 px-3 font-mono text-[11px] text-muted-foreground backdrop-blur-md lg:flex">
+    <footer className="fixed inset-x-0 bottom-0 z-50 hidden h-6 items-center justify-between border-t border-border bg-surface/90 px-3 font-mono text-[11px] text-muted-foreground backdrop-blur-md lg:flex print:!hidden">
       <div className="flex items-center gap-3">
         <span className="flex items-center gap-1 text-accent">
           <GitBranch className="h-3 w-3" /> main
@@ -292,7 +293,7 @@ function BottomNav({ activeId }: { activeId: string }) {
   return (
     <nav
       aria-label="Primary"
-      className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-5 border-t border-border bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md lg:hidden"
+      className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-5 border-t border-border bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md lg:hidden print:!hidden"
     >
       {items.map((it) => {
         const Icon = it.icon;
@@ -371,7 +372,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <TitleBar onSearch={() => setPaletteOpen(true)} />
       <ActivityRail onSearch={() => setPaletteOpen(true)} />
       {isHome && <TabStrip activeId={activeId} />}
-      <main className="pb-24 lg:pb-10 lg:pl-14">{children}</main>
+      <main className="pb-24 lg:pb-10 lg:pl-14 print:!p-0">{children}</main>
       <StatusBar activeId={activeId} />
       <BottomNav activeId={activeId} />
       <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />

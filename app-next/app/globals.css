@@ -54,7 +54,9 @@
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 6rem;
+    /* Sections carry their own top padding (which clears the sticky header),
+       so no extra scroll offset is needed — avoids a large gap on jump. */
+    scroll-padding-top: 0;
     -webkit-text-size-adjust: 100%;
   }
 
@@ -165,10 +167,9 @@
 
 /* Print — clean A4 résumé export */
 @media print {
-  header,
-  footer {
-    display: none !important;
-  }
+  /* App chrome (title bar, rail, tabs, status bar, bottom nav) hides itself
+     via `print:hidden` utilities. Do NOT blanket-hide <header>/<footer> here —
+     the résumé's own name/contact block is a semantic <header>. */
   body {
     background: #fff !important;
     color: #000 !important;
@@ -181,6 +182,20 @@
   .resume-h2 {
     color: #0f766e !important;
     border-color: #0f766e !important;
+  }
+  /* Keep a section title glued to the content that follows it — never leave a
+     heading stranded at the very bottom of a page. */
+  .resume-h2,
+  .resume-sheet h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  /* Reveal the real URL next to short link labels so the exported PDF stays
+     useful even if the browser strips the clickable link annotation. */
+  .resume-link[data-print-url]::after {
+    content: " — " attr(data-print-url);
+    font-weight: 400;
+    color: #000;
   }
   @page {
     size: A4;

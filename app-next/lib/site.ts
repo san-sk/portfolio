@@ -8,6 +8,8 @@ export const site = {
   url: "https://san-sk.github.io/Portfolio",
   email: "sanskjob@gmail.com",
   location: "India · Remote-friendly",
+  // Swap this file (app-next/public) with a real headshot (e.g. /profile.jpg) later.
+  avatar: "/profile.svg",
   socials: {
     github: "https://github.com/san-sk",
     linkedin: "https://www.linkedin.com/in/santhanam-k-0236a91b1/",

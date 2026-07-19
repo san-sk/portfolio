@@ -1,5 +1,8 @@
+import { MapPin } from "lucide-react";
 import { Reveal } from "@/components/magic/reveal";
 import { Section } from "@/components/section";
+import { Avatar } from "@/components/ui/avatar";
+import { site } from "@/lib/site";
 
 const principles = [
   {
@@ -39,6 +42,27 @@ export function About() {
       }
       intro="Some engineers count years. I count the moments a product finally feels right — then chase the next one."
     >
+      <Reveal className="mb-4">
+        <div className="card-surface flex flex-col items-center gap-6 p-6 text-center sm:flex-row sm:items-center sm:p-8 sm:text-left">
+          <Avatar className="h-28 w-28 sm:h-32 sm:w-32" />
+          <div>
+            <p className="text-lg font-semibold tracking-tight">
+              Hi, I&rsquo;m {site.fullName}.
+            </p>
+            <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
+              A Chennai-based Senior Android Engineer who&rsquo;s spent seven
+              years turning Kotlin, Jetpack Compose &amp; KMP into products
+              people quietly trust — across VPN, security, banking, healthcare
+              and marketplace apps.
+            </p>
+            <span className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-border bg-background/40 px-3 py-1 font-mono text-xs text-muted-foreground">
+              <MapPin className="h-3.5 w-3.5 text-accent" />
+              {site.location}
+            </span>
+          </div>
+        </div>
+      </Reveal>
+
       <div className="grid gap-4 md:grid-cols-3">
         {principles.map((p, i) => (
           <Reveal key={p.title} delay={i} as="article">

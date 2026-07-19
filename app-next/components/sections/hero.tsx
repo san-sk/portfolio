@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, FileText, Github, Monitor, Smartphone } from "lucide-react";
+import { PlatformGreeter } from "@/components/magic/platform-greeter";
 import { AuroraBackground } from "@/components/magic/aurora-background";
 import { GradientText } from "@/components/magic/gradient-text";
 import { Magnetic } from "@/components/magic/magnetic";
@@ -84,9 +85,9 @@ export function Hero() {
             variants={reduce ? undefined : item}
             className="mt-5 text-balance text-[clamp(2.75rem,8.5vw,7.5rem)] font-semibold leading-[0.98] tracking-[-0.03em]"
           >
-            I build Android
+            I build apps
             <br />
-            that feels{" "}
+            that feel{" "}
             <GradientText>inevitable.</GradientText>
             {!reduce && (
               <motion.span
@@ -156,6 +157,10 @@ export function Hero() {
           </motion.dl>
         </motion.div>
       </div>
+
+      {/* Android + Apple greeter floating in the right whitespace — smaller on
+          mobile, growing on larger screens */}
+      <PlatformGreeter className="absolute right-2 top-[32%] z-10 w-[92px] -translate-y-1/2 sm:right-6 sm:w-[128px] md:right-10 md:top-[36%] md:w-[168px] xl:right-24 xl:top-[37%] xl:w-[248px] 2xl:right-40 2xl:w-[288px]" />
     </section>
   );
 }

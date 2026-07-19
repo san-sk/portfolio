@@ -17,31 +17,33 @@ export function OpenSource() {
       intro="I share experiments and notes as I learn — the code that doesn&rsquo;t make it into a product still teaches something."
     >
       <Reveal>
-        <SpotlightCard
-          as="a"
-          className="flex flex-col items-start justify-between gap-6 p-8 sm:flex-row sm:items-center"
-          href={site.socials.github}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <div className="flex items-center gap-4">
-            <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-border bg-muted/50 text-foreground">
-              <Github className="h-7 w-7" />
-            </span>
-            <div>
-              <p className="text-lg font-semibold tracking-tight">
+        <div className="flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
+          <div className="flex items-center gap-3">
+            <Github className="h-6 w-6 shrink-0 text-accent" />
+            <div className="min-w-0">
+              <a
+                href={site.socials.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-lg font-semibold tracking-tight transition-colors hover:text-accent"
+              >
                 github.com/{site.socials.githubUser}
-              </p>
-              <p className="mt-1 text-sm text-muted-foreground">
+              </a>
+              <p className="mt-0.5 text-sm text-muted-foreground">
                 Follow along for Android, Compose &amp; KMP experiments.
               </p>
             </div>
           </div>
-          <span className="inline-flex shrink-0 items-center gap-2 self-start whitespace-nowrap rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-transform group-hover/spotlight:scale-[1.03] sm:self-auto">
+          <a
+            href={site.socials.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-1.5 self-start whitespace-nowrap text-sm font-semibold text-accent sm:self-auto"
+          >
             View profile
-            <ArrowUpRight className="h-4 w-4" />
-          </span>
-        </SpotlightCard>
+            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
+        </div>
       </Reveal>
 
       {hasRepos && (

@@ -185,7 +185,6 @@ export const domains: Domain[] = [
       "Figma",
       "Postman",
       "Android Studio",
-      "Charles Proxy",
     ],
   },
 ];

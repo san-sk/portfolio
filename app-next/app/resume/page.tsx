@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import { ResumeToolbar } from "@/components/resume/resume-toolbar";
 import { resume } from "@/data/resume";
 import { site } from "@/lib/site";
@@ -31,25 +31,40 @@ export default function ResumePage() {
             </h1>
             <p className="mt-1.5 text-sm font-medium text-accent">{resume.role}</p>
           </div>
-          <ul className="flex flex-col gap-1.5 text-sm text-muted-foreground sm:text-right print:text-black">
-            <li className="flex items-center gap-2 sm:justify-end">
-              <MapPin className="h-3.5 w-3.5 print:hidden" /> {resume.location}
+          <ul className="flex flex-col gap-1.5 text-sm text-muted-foreground sm:items-end sm:text-right print:text-black">
+            <li className="flex items-center gap-2">
+              <MapPin className="h-3.5 w-3.5 shrink-0 text-accent print:hidden" />
+              {resume.location}
             </li>
-            <li className="flex items-center gap-2 sm:justify-end">
-              <Mail className="h-3.5 w-3.5 print:hidden" />
-              <a href={`mailto:${site.email}`} className="hover:text-foreground">
+            <li className="flex items-center gap-2">
+              <Mail className="h-3.5 w-3.5 shrink-0 text-accent print:hidden" />
+              <a
+                href={`mailto:${site.email}`}
+                className="hover:text-foreground print:text-black print:underline"
+              >
                 {site.email}
               </a>
             </li>
-            <li className="flex items-center gap-2 sm:justify-end">
-              <Phone className="h-3.5 w-3.5 print:hidden" /> {resume.phone}
+            <li className="flex items-center gap-2">
+              <Phone className="h-3.5 w-3.5 shrink-0 text-accent print:hidden" />
+              {resume.phone}
             </li>
-            <li className="flex gap-2 sm:justify-end">
-              <a href={site.socials.linkedin} className="hover:text-foreground">
+            <li className="flex items-center gap-2">
+              <a
+                href={site.socials.linkedin}
+                data-print-url="linkedin.com/in/santhanam-k-0236a91b1"
+                className="resume-link inline-flex items-center gap-1.5 hover:text-foreground print:text-black print:underline"
+              >
+                <Linkedin className="h-3.5 w-3.5 shrink-0 text-accent print:hidden" />
                 LinkedIn
               </a>
-              <span aria-hidden>·</span>
-              <a href={site.socials.github} className="hover:text-foreground">
+              <span aria-hidden className="text-muted-foreground/40 print:text-black">·</span>
+              <a
+                href={site.socials.github}
+                data-print-url={`github.com/${site.socials.githubUser}`}
+                className="resume-link inline-flex items-center gap-1.5 hover:text-foreground print:text-black print:underline"
+              >
+                <Github className="h-3.5 w-3.5 shrink-0 text-accent print:hidden" />
                 GitHub
               </a>
             </li>

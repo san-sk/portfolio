@@ -30,13 +30,22 @@ export const projects: Project[] = [
     approach: [
       "Rebuilt the connect state machine around a single source of truth in StateFlow",
       "Hardened the kill-switch across process death and network handoff",
+      "Built an offline-ready server-location map that stays usable without a connection",
+      "Owned VPN notification management — connection status, alerts, and kill-switch",
       "Instrumented every transition to make failures observable, not mysterious",
     ],
     outcome:
-      "Steadier connections and cleaner reconnection, delivered through targeted debugging, telemetry, and Play Console rollout monitoring.",
-    tech: ["Kotlin", "Jetpack Compose", "Coroutines", "VPN Service API", "Play Console"],
+      "Steadier connections, a dependable offline map, and clearer status notifications — delivered through targeted debugging, telemetry, and Play Console rollout monitoring.",
+    tech: [
+      "Kotlin",
+      "Jetpack Compose",
+      "Coroutines",
+      "VPN Service API",
+      "Offline Maps",
+      "Notifications",
+    ],
     metrics: [
-      { label: "Users reached", value: "50M+" },
+      { label: "Norton 360 installs", value: "50M+" },
       { label: "Surface", value: "Global" },
     ],
     gradient: "from-emerald-500/25 via-teal-500/10 to-transparent",

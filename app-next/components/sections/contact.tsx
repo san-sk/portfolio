@@ -22,7 +22,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="relative scroll-mt-24 overflow-hidden py-24 sm:py-32">
+    <section id="contact" className="relative overflow-hidden py-24 sm:py-32">
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute left-1/2 top-1/2 h-[36rem] w-[36rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/10 blur-[120px]" />
         <div className="absolute inset-0 grid-lines opacity-20" />
