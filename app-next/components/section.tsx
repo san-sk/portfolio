@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/magic/reveal";
+import { MobileCollapse } from "@/components/magic/mobile-collapse";
 
 export function Section({
   id,
@@ -10,6 +11,8 @@ export function Section({
   children,
   className,
   align = "left",
+  collapsible = false,
+  collapsedHeight,
 }: {
   id?: string;
   file?: string;
@@ -19,6 +22,9 @@ export function Section({
   children: React.ReactNode;
   className?: string;
   align?: "left" | "center";
+  /** On mobile, clamp the body with a "Show more" toggle to keep the page short. */
+  collapsible?: boolean;
+  collapsedHeight?: number;
 }) {
   return (
     <section
@@ -62,7 +68,13 @@ export function Section({
             )}
           </Reveal>
         )}
-        {children}
+        {collapsible ? (
+          <MobileCollapse collapsedHeight={collapsedHeight}>
+            {children}
+          </MobileCollapse>
+        ) : (
+          children
+        )}
       </div>
     </section>
   );

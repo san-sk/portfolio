@@ -113,22 +113,34 @@ export function Hero() {
             variants={reduce ? undefined : item}
             className="mt-10 flex flex-wrap items-center gap-3"
           >
-            <Magnetic>
-              <Button size="lg" onClick={() => jump("#projects")}>
-                View my work
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-              </Button>
-            </Magnetic>
-            <Magnetic strength={0.25}>
-              <Button
-                size="lg"
-                variant="secondary"
-                onClick={() => (window.location.href = asset("/resume"))}
-              >
-                <FileText className="h-4 w-4" />
-                View résumé
-              </Button>
-            </Magnetic>
+            <div className="contents" data-lite-hide>
+              <Magnetic>
+                <Button size="lg" onClick={() => jump("#projects")}>
+                  View my work
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </Button>
+              </Magnetic>
+            </div>
+            <div className="contents" data-lite-hide>
+              <Magnetic strength={0.25}>
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  onClick={() => (window.location.href = asset("/resume"))}
+                >
+                  <FileText className="h-4 w-4" />
+                  View résumé
+                </Button>
+              </Magnetic>
+            </div>
+            <div data-lite-only>
+              <Magnetic>
+                <Button size="lg" onClick={() => jump("#contact")}>
+                  Get in touch
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </Button>
+              </Magnetic>
+            </div>
             <a
               href={site.socials.github}
               target="_blank"

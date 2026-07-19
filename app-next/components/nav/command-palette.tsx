@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import { useViewMode } from "@/lib/use-view-mode";
 
 interface Item {
   label: string;
@@ -28,6 +29,7 @@ interface Item {
   action: () => void;
   keywords?: string;
   external?: boolean;
+  liteHidden?: boolean;
 }
 
 export function CommandPalette({
@@ -39,6 +41,7 @@ export function CommandPalette({
 }) {
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
+  const mode = useViewMode();
 
   const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   const go = (href: string) => {
@@ -58,11 +61,11 @@ export function CommandPalette({
     () => [
       { label: "Home", hint: "Top", icon: Home, action: () => go("#top") },
       { label: "Expertise", hint: "Domains", icon: Layers, action: () => go("#expertise") },
-      { label: "Featured Projects", hint: "Case studies", icon: Sparkles, action: () => go("#projects") },
-      { label: "Experience", hint: "Journey", icon: Briefcase, action: () => go("#experience") },
+      { label: "Featured Projects", hint: "Case studies", icon: Sparkles, action: () => go("#projects"), liteHidden: true },
+      { label: "Experience", hint: "Journey", icon: Briefcase, action: () => go("#experience"), liteHidden: true },
       { label: "Work with me", hint: "Mentorship & more", icon: HeartHandshake, action: () => go("#services"), keywords: "coaching mentorship hire freelance workshop materials" },
       { label: "Notes", hint: "Writing", icon: BookOpen, action: () => go("/notes"), keywords: "blog articles writing" },
-      { label: "Résumé", hint: "View & download", icon: FileText, action: () => go("/resume") },
+      { label: "Résumé", hint: "View & download", icon: FileText, action: () => go("/resume"), liteHidden: true },
       { label: "Contact", hint: "Say hello", icon: Mail, action: () => go("#contact") },
       { label: "GitHub", hint: `@${site.socials.githubUser}`, icon: Github, action: () => go(site.socials.github), external: true },
       { label: "LinkedIn", hint: "Connect", icon: Linkedin, action: () => go(site.socials.linkedin), external: true },
@@ -72,8 +75,10 @@ export function CommandPalette({
     [],
   );
 
-  const filtered = items.filter((i) =>
-    (i.label + i.hint + (i.keywords ?? "")).toLowerCase().includes(query.toLowerCase()),
+  const filtered = items.filter(
+    (i) =>
+      (mode === "full" || !i.liteHidden) &&
+      (i.label + i.hint + (i.keywords ?? "")).toLowerCase().includes(query.toLowerCase()),
   );
 
   useEffect(() => {

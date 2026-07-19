@@ -47,47 +47,62 @@ export function OpenSource() {
       </Reveal>
 
       {hasRepos && (
-        <div className="mt-4 grid gap-4 lg:grid-cols-3">
-          {repos.map((repo, i) => (
-            <Reveal key={repo.name} delay={i}>
-              <SpotlightCard
-                as="a"
-                className="block h-full p-5"
-                href={repo.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="flex items-center gap-2 text-sm font-semibold">
-                  <Github className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-foreground">{repo.name}</span>
-                </div>
-                <p className="mt-3 min-h-[3.5rem] text-sm leading-relaxed text-muted-foreground">
-                  {repo.description}
-                </p>
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {repo.topics.map((t) => (
-                    <span
-                      key={t}
-                      className="rounded-full bg-accent/10 px-2 py-0.5 text-[11px] font-medium text-accent"
+        <Reveal className="mt-4">
+          <div className="group relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_4%,#000_96%,transparent)] motion-reduce:overflow-x-auto motion-reduce:[mask-image:none]">
+            <ul
+              className="flex w-max animate-marquee items-stretch group-hover:[animation-play-state:paused] motion-reduce:animate-none"
+              style={{ "--marquee-duration": "50s" } as React.CSSProperties}
+            >
+              {[...repos, ...repos].map((repo, i) => {
+                const isClone = i >= repos.length;
+                return (
+                  <li
+                    key={repo.name + i}
+                    aria-hidden={isClone}
+                    className="mr-4 w-[300px] shrink-0 sm:w-[330px]"
+                  >
+                    <SpotlightCard
+                      as="a"
+                      className="block h-full p-5"
+                      href={repo.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      tabIndex={isClone ? -1 : undefined}
                     >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-                <div className="mt-5 flex items-center justify-between border-t border-border pt-4 text-xs text-muted-foreground">
-                  <span className="flex items-center gap-2">
-                    <span
-                      className="h-2.5 w-2.5 rounded-full"
-                      style={{ background: repo.langColor }}
-                    />
-                    {repo.language}
-                  </span>
-                  <ArrowUpRight className="h-4 w-4 opacity-50 transition-opacity group-hover/spotlight:opacity-100" />
-                </div>
-              </SpotlightCard>
-            </Reveal>
-          ))}
-        </div>
+                      <div className="flex items-center gap-2 text-sm font-semibold">
+                        <Github className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-foreground">{repo.name}</span>
+                      </div>
+                      <p className="mt-3 min-h-[3.5rem] text-sm leading-relaxed text-muted-foreground">
+                        {repo.description}
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-1.5">
+                        {repo.topics.map((t) => (
+                          <span
+                            key={t}
+                            className="rounded-full bg-accent/10 px-2 py-0.5 text-[11px] font-medium text-accent"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="mt-5 flex items-center justify-between border-t border-border pt-4 text-xs text-muted-foreground">
+                        <span className="flex items-center gap-2">
+                          <span
+                            className="h-2.5 w-2.5 rounded-full"
+                            style={{ background: repo.langColor }}
+                          />
+                          {repo.language}
+                        </span>
+                        <ArrowUpRight className="h-4 w-4 opacity-50 transition-opacity group-hover/spotlight:opacity-100" />
+                      </div>
+                    </SpotlightCard>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </Reveal>
       )}
     </Section>
   );
