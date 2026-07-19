@@ -179,9 +179,17 @@
   .resume-doc {
     padding: 0 !important;
   }
+  /* The site's bright emerald accent is unreadable on white paper, so force a
+     deep, high-contrast green for every accent-colored element in the résumé. */
   .resume-h2 {
-    color: #0f766e !important;
-    border-color: #0f766e !important;
+    color: #065f46 !important;
+    border-color: #065f46 !important;
+  }
+  .resume-sheet .text-accent {
+    color: #065f46 !important;
+  }
+  .resume-sheet .bg-accent {
+    background-color: #065f46 !important;
   }
   /* Keep a section title glued to the content that follows it — never leave a
      heading stranded at the very bottom of a page. */
@@ -190,12 +198,11 @@
     break-after: avoid;
     page-break-after: avoid;
   }
-  /* Reveal the real URL next to short link labels so the exported PDF stays
-     useful even if the browser strips the clickable link annotation. */
-  .resume-link[data-print-url]::after {
-    content: " — " attr(data-print-url);
-    font-weight: 400;
-    color: #000;
+  /* Avoid single lines of a paragraph/list item stranded across a page break. */
+  .resume-sheet p,
+  .resume-sheet li {
+    orphans: 2;
+    widows: 2;
   }
   @page {
     size: A4;

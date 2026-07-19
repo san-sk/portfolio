@@ -33,11 +33,11 @@ export default function ResumePage() {
           </div>
           <ul className="flex flex-col gap-1.5 text-sm text-muted-foreground sm:items-end sm:text-right print:text-black">
             <li className="flex items-center gap-2">
-              <MapPin className="h-3.5 w-3.5 shrink-0 text-accent print:hidden" />
+              <MapPin className="h-3.5 w-3.5 shrink-0 text-accent" />
               {resume.location}
             </li>
             <li className="flex items-center gap-2">
-              <Mail className="h-3.5 w-3.5 shrink-0 text-accent print:hidden" />
+              <Mail className="h-3.5 w-3.5 shrink-0 text-accent" />
               <a
                 href={`mailto:${site.email}`}
                 className="hover:text-foreground print:text-black print:underline"
@@ -46,40 +46,38 @@ export default function ResumePage() {
               </a>
             </li>
             <li className="flex items-center gap-2">
-              <Phone className="h-3.5 w-3.5 shrink-0 text-accent print:hidden" />
+              <Phone className="h-3.5 w-3.5 shrink-0 text-accent" />
               {resume.phone}
             </li>
             <li className="flex items-center gap-2">
               <a
                 href={site.socials.linkedin}
-                data-print-url="linkedin.com/in/santhanam-k-0236a91b1"
-                className="resume-link inline-flex items-center gap-1.5 hover:text-foreground print:text-black print:underline"
+                className="inline-flex items-center gap-1.5 hover:text-foreground print:text-black print:underline"
               >
-                <Linkedin className="h-3.5 w-3.5 shrink-0 text-accent print:hidden" />
+                <Linkedin className="h-3.5 w-3.5 shrink-0 text-accent" />
                 LinkedIn
               </a>
               <span aria-hidden className="text-muted-foreground/40 print:text-black">·</span>
               <a
                 href={site.socials.github}
-                data-print-url={`github.com/${site.socials.githubUser}`}
-                className="resume-link inline-flex items-center gap-1.5 hover:text-foreground print:text-black print:underline"
+                className="inline-flex items-center gap-1.5 hover:text-foreground print:text-black print:underline"
               >
-                <Github className="h-3.5 w-3.5 shrink-0 text-accent print:hidden" />
+                <Github className="h-3.5 w-3.5 shrink-0 text-accent" />
                 GitHub
               </a>
             </li>
           </ul>
         </header>
 
-        <p className="mt-5 text-sm leading-relaxed text-foreground/90 print:text-black">
+        <p className="mt-5 text-sm leading-relaxed text-foreground/90 print:mt-3 print:text-black">
           {resume.summary}
         </p>
 
-        <section className="mt-8">
+        <section className="mt-8 print:mt-4">
           <SectionTitle>Core Skills</SectionTitle>
-          <div className="grid gap-x-8 gap-y-1.5 sm:grid-cols-2">
+          <div className="grid gap-x-8 gap-y-1.5 sm:grid-cols-2 print:gap-y-1">
             {resume.skills.map((s) => (
-              <p key={s.label} className="text-[13px] leading-relaxed text-muted-foreground print:text-black">
+              <p key={s.label} className="break-inside-avoid text-[13px] leading-relaxed text-muted-foreground print:text-black">
                 <strong className="text-foreground print:text-black">{s.label}:</strong>{" "}
                 {s.value}
               </p>
@@ -87,9 +85,9 @@ export default function ResumePage() {
           </div>
         </section>
 
-        <section className="mt-8">
+        <section className="mt-8 print:mt-4">
           <SectionTitle>Professional Experience</SectionTitle>
-          <div className="space-y-5">
+          <div className="space-y-5 print:space-y-3">
             {resume.experience.map((role) => (
               <div key={role.title + role.period} className="break-inside-avoid">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4">
@@ -115,13 +113,13 @@ export default function ResumePage() {
           </div>
         </section>
 
-        <section className="mt-8">
+        <section className="mt-8 print:mt-4">
           <SectionTitle>Key Projects</SectionTitle>
           <ul className="space-y-1.5">
             {resume.projects.map((p) => (
               <li
                 key={p.name}
-                className="text-[13px] leading-relaxed text-muted-foreground print:text-black"
+                className="break-inside-avoid text-[13px] leading-relaxed text-muted-foreground print:text-black"
               >
                 <strong className="text-foreground print:text-black">{p.name}:</strong>{" "}
                 {p.detail}
@@ -130,11 +128,11 @@ export default function ResumePage() {
           </ul>
         </section>
 
-        <section className="mt-8">
+        <section className="mt-8 print:mt-4">
           <SectionTitle>Education</SectionTitle>
           <div className="grid gap-4 sm:grid-cols-2">
             {resume.education.map((e) => (
-              <p key={e.degree} className="text-[13px] leading-relaxed text-muted-foreground print:text-black">
+              <p key={e.degree} className="break-inside-avoid text-[13px] leading-relaxed text-muted-foreground print:text-black">
                 <strong className="text-foreground print:text-black">{e.degree}</strong>
                 <br />
                 {e.place}
