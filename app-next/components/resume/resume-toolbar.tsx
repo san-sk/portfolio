@@ -5,7 +5,8 @@ import { PageBackLink } from "@/components/nav/page-back";
 
 // Pre-generated, identical for every OS/browser (no print dialog involved).
 // Regenerate with `npm run resume:pdf` whenever the résumé content changes.
-const pdfHref = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/resume.pdf`;
+// Bump `v` when résumé/PDF content changes so browsers don't serve a stale cache.
+const pdfHref = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/resume.pdf?v=2`;
 
 export function ResumeToolbar() {
   return (
