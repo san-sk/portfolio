@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
+import { ArrowUpRight, Check } from "lucide-react";
 import { Reveal } from "@/components/magic/reveal";
+import { PageBackLink } from "@/components/nav/page-back";
 import { SpotlightCard } from "@/components/magic/spotlight-card";
 import { services } from "@/data/services";
 import { site } from "@/lib/site";
@@ -17,14 +18,10 @@ export default function WorkWithMePage() {
   return (
     <div className="container-x pt-28 pb-24">
       <Reveal>
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ArrowLeft className="h-4 w-4" /> Back to portfolio
-        </Link>
+        <header className="flex max-w-3xl flex-col items-start">
+          <PageBackLink />
 
-        <div className="mt-8 inline-flex items-center gap-2 rounded-md border border-border bg-surface/60 px-3 py-1.5 font-mono text-xs">
+          <div className="mt-8 inline-flex items-center gap-2 rounded-md border border-border bg-surface/60 px-3 py-1.5 font-mono text-xs">
           <span className="h-2 w-2 rounded-full bg-accent" />
           <span className="text-accent">services.kt</span>
           <span className="text-muted-foreground/40">—</span>
@@ -38,6 +35,7 @@ export default function WorkWithMePage() {
           Beyond full-time work, I mentor engineers, build apps, and share what
           I learn. If any of these fit, my inbox is open.
         </p>
+        </header>
       </Reveal>
 
       <div className="mt-14 grid gap-4 md:grid-cols-2">
