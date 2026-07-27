@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Github, Linkedin, Mail, MapPin, Phone } from "lucide-react";
+import { Github, Globe, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import { ResumeToolbar } from "@/components/resume/resume-toolbar";
 import { resume } from "@/data/resume";
 import { site } from "@/lib/site";
@@ -49,7 +49,7 @@ export default function ResumePage() {
               <Phone className="h-3.5 w-3.5 shrink-0 text-accent" />
               {resume.phone}
             </li>
-            <li className="flex items-center gap-2">
+            <li className="flex flex-wrap items-center gap-2">
               <a
                 href={site.socials.linkedin}
                 className="inline-flex items-center gap-1.5 hover:text-foreground print:text-black print:underline"
@@ -64,6 +64,14 @@ export default function ResumePage() {
               >
                 <Github className="h-3.5 w-3.5 shrink-0 text-accent" />
                 GitHub
+              </a>
+              <span aria-hidden className="text-muted-foreground/40 print:text-black">·</span>
+              <a
+                href={site.url}
+                className="inline-flex items-center gap-1.5 hover:text-foreground print:text-black print:underline"
+              >
+                <Globe className="h-3.5 w-3.5 shrink-0 text-accent" />
+                Portfolio
               </a>
             </li>
           </ul>
