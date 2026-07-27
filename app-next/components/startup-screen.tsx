@@ -104,8 +104,16 @@ export function StartupScreen() {
       else if (k === "l") enter("lite");
       else if (e.key === "Escape") enter("full");
     };
+    // Non-gating: the first scroll/swipe just dives into the full portfolio.
+    const skip = () => enter("full");
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener("wheel", skip, { passive: true });
+    window.addEventListener("touchmove", skip, { passive: true });
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("wheel", skip);
+      window.removeEventListener("touchmove", skip);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
@@ -122,6 +130,15 @@ export function StartupScreen() {
           className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-background px-6"
         >
           <AuroraBackground />
+
+          {/* Skip — the splash is optional, never a gate */}
+          <button
+            onClick={() => enter("full")}
+            className="absolute right-4 top-4 z-10 inline-flex items-center gap-1.5 rounded-full border border-border bg-surface/60 px-3.5 py-1.5 font-mono text-[11px] text-muted-foreground transition-colors hover:border-accent/50 hover:text-foreground"
+          >
+            Skip intro
+            <ArrowRight className="h-3.5 w-3.5" />
+          </button>
 
           {/* IDE boot chip (desktop) — slides in from the corner */}
           <motion.div
@@ -168,7 +185,7 @@ export function StartupScreen() {
               className="mt-6 font-mono text-xs text-accent"
             >
               <span className="text-muted-foreground">{"// "}</span>
-              {site.fullName} · Senior Android Engineer
+              {site.fullName} · Senior Software Engineer
             </motion.p>
 
             <motion.h1
@@ -182,8 +199,8 @@ export function StartupScreen() {
               variants={reduce ? undefined : rise}
               className="mt-4 text-pretty text-sm text-muted-foreground sm:text-base"
             >
-              Short on time, or here to dig in? Choose one to step in — you can
-              switch anytime once you&rsquo;re inside.
+              Short on time, or here to dig in? Pick a pace — or just scroll to
+              dive straight in. You can switch anytime once you&rsquo;re inside.
             </motion.p>
 
             <motion.div
