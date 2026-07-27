@@ -8,7 +8,6 @@ import {
   FileText,
   GitBranch,
   Github,
-  HeartHandshake,
   Home,
   Layers,
   Mail,
@@ -94,7 +93,6 @@ function ActivityRail({ onSearch }: { onSearch: () => void }) {
     { label: "Search (⌘K)", icon: Search, action: onSearch, kind: "action" as const },
     { label: "Notes", icon: BookOpen, href: "/notes", kind: "route" as const },
     { label: "Résumé", icon: FileText, href: "/resume", kind: "route" as const },
-    { label: "Work with me", icon: HeartHandshake, href: "/work-with-me", kind: "route" as const },
     { label: "Source control", icon: Github, href: site.socials.github, kind: "external" as const },
     { label: "Contact", icon: Mail, href: "#contact", kind: "hash" as const },
   ];
@@ -236,13 +234,6 @@ function TabStrip({ activeId }: { activeId: string }) {
         >
           <FileText className="h-3 w-3" />
           resume.pdf
-        </Link>
-        <Link
-          href="/work-with-me"
-          className="flex shrink-0 items-center gap-2 border-r border-border px-4 py-2.5 font-mono text-xs text-muted-foreground transition-colors hover:bg-surface/50 hover:text-foreground"
-        >
-          <HeartHandshake className="h-3 w-3" />
-          services.kt
         </Link>
       </div>
     </div>

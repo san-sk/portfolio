@@ -24,11 +24,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.7,
     },
-    {
-      url: `${site.url}/work-with-me`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
   ];
 }

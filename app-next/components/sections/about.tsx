@@ -14,8 +14,8 @@ const principles = [
     body: "Clean architecture isn&rsquo;t about rules; it&rsquo;s about making the next change obvious. I optimize for the engineer who reads this in a year.",
   },
   {
-    title: "Make failure observable",
-    body: "If a failure isn&rsquo;t observable, it isn&rsquo;t done. I instrument state transitions so a 3am page points at the cause — that&rsquo;s exactly how I killed Norton VPN&rsquo;s silent connect failures.",
+    title: "Ship, then sharpen",
+    body: "I&rsquo;d rather release something honest and measurable than perfect and imaginary — then profile, refine, and repeat.",
   },
 ];
 
@@ -52,10 +52,10 @@ export function About() {
               Hi, I&rsquo;m {site.fullName}.
             </p>
             <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
-              A Chennai-based software engineer who&rsquo;s spent seven years
-              turning Kotlin, Compose &amp; KMP into products people quietly
-              trust — across VPN, security, banking, healthcare and marketplace
-              apps, plus the REST backends and tooling behind them.
+              A Chennai-based Senior Android Engineer who&rsquo;s spent seven
+              years turning Kotlin, Jetpack Compose &amp; KMP into products
+              people quietly trust — across VPN, security, banking, healthcare
+              and marketplace apps.
             </p>
             <span className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-border bg-background/40 px-3 py-1 font-mono text-xs text-muted-foreground">
               <MapPin className="h-3.5 w-3.5 text-accent" />

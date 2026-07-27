@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { ArrowUpRight, Copy, Check, Github, Linkedin, Mail } from "lucide-react";
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
@@ -43,8 +42,8 @@ export function Contact() {
           </h2>
 
           <p className="mx-auto mt-5 max-w-xl text-pretty text-lg text-muted-foreground">
-            Senior/staff roles, ambitious product teams, or a hard mobile or
-            systems problem — if quality matters to you, we&rsquo;ll get along.
+            Senior/staff roles, ambitious product teams, or a hard Android
+            problem — if quality matters to you, we&rsquo;ll get along.
           </p>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -92,17 +91,7 @@ export function Contact() {
             ))}
           </div>
 
-          <p className="mt-12 text-sm text-muted-foreground">
-            Not hiring, but want to work together?{" "}
-            <Link
-              href="/work-with-me"
-              className="font-medium text-accent underline-offset-4 hover:underline"
-            >
-              Mentorship, contract builds &amp; workshops →
-            </Link>
-          </p>
-
-          <p className="mt-10 font-mono text-xs text-muted-foreground">
+          <p className="mt-14 font-mono text-xs text-muted-foreground">
             © {new Date().getFullYear()} {site.name} — engineered with Kotlin care,
             not a template in sight.
           </p>

@@ -46,7 +46,7 @@ export const projects: Project[] = [
     ],
     metrics: [
       { label: "Norton 360 installs", value: "50M+" },
-      { label: "My focus", value: "Connect reliability" },
+      { label: "Surface", value: "Global" },
     ],
     gradient: "from-emerald-500/25 via-teal-500/10 to-transparent",
     mono: "NV",
@@ -73,7 +73,7 @@ export const projects: Project[] = [
     tech: ["Kotlin", "Java", "Retrofit", "Coroutines", "MVVM"],
     metrics: [
       { label: "Domain", value: "Pharmacy" },
-      { label: "My focus", value: "Checkout reliability" },
+      { label: "Focus", value: "Stability & checkout" },
     ],
     gradient: "from-teal-500/20 via-emerald-500/10 to-transparent",
     mono: "NM",
@@ -83,11 +83,11 @@ export const projects: Project[] = [
   {
     slug: "sulekha-marketplace",
     name: "Sulekha Marketplace",
-    category: "Marketplace · 1M+ downloads",
+    category: "Marketplace · 10M+ downloads",
     year: "2022",
-    tagline: "Local services at scale, with maps that actually feel instant.",
+    tagline: "Local services for millions, with maps that actually feel instant.",
     overview:
-      "A local-services marketplace with 1M+ downloads — maps, notifications, custom views, and screen-share onboarding.",
+      "A local-services marketplace with 10M+ downloads — maps, notifications, custom views, and screen-share onboarding.",
     problem:
       "Onboarding drop-off was high and map-heavy screens stuttered on mid-range devices.",
     approach: [
@@ -99,8 +99,8 @@ export const projects: Project[] = [
       "Smoother onboarding, reusable UI foundations, and a stronger Android team.",
     tech: ["Kotlin", "Google Maps SDK", "Firebase FCM", "Custom Views"],
     metrics: [
-      { label: "Downloads", value: "1M+" },
-      { label: "My focus", value: "Perf on mid-range" },
+      { label: "Downloads", value: "10M+" },
+      { label: "Play rating", value: "4.3★" },
     ],
     gradient: "from-amber-500/20 via-emerald-500/10 to-transparent",
     mono: "SK",
@@ -112,9 +112,9 @@ export const projects: Project[] = [
     name: "VGM Patient",
     category: "Healthcare · 0→1",
     year: "2020",
-    tagline: "A hospital in your pocket — app, API and database, built solo.",
+    tagline: "A hospital in your pocket, built from an empty repo.",
     overview:
-      "A healthcare product built end-to-end from an empty repo — Android client, REST API and MySQL backend for EHR, ICD diagnosis, prescriptions and appointments.",
+      "A healthcare Android app built from scratch — EHR, ICD diagnosis, prescriptions, and appointments.",
     problem:
       "Clinicians needed EHR, diagnosis and prescriptions in one reliable mobile flow, with nothing to start from.",
     approach: [
@@ -132,6 +132,6 @@ export const projects: Project[] = [
     gradient: "from-rose-500/20 via-emerald-500/10 to-transparent",
     mono: "VP",
     links: {},
-    featured: true,
+    featured: false,
   },
 ];

@@ -1,13 +1,9 @@
 // Real, resume-backed highlights only. Everything here is a fact you can stand behind.
 export const stats = [
-  { value: 7, suffix: "+", label: "Years shipping software" },
+  { value: 7, suffix: "+", label: "Years shipping Android" },
   { value: 50, suffix: "M+", label: "Norton 360 installs" },
-  { value: 1, suffix: "M+", label: "Sulekha downloads" },
-  {
-    value: 5,
-    suffix: "",
-    label: "Domains: VPN · security · banking · health · marketplace",
-  },
+  { value: 10, suffix: "M+", label: "Sulekha downloads" },
+  { value: 6, suffix: "", label: "Companies · domains" },
 ];
 
 export interface Repo {

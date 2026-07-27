@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { ArrowUpRight, Clock, PenLine } from "lucide-react";
+import Link from "next/link";
+import { ArrowLeft, ArrowUpRight, Clock, PenLine } from "lucide-react";
 import { Reveal } from "@/components/magic/reveal";
-import { PageBackLink } from "@/components/nav/page-back";
 import { notes } from "@/data/notes";
 import { site } from "@/lib/site";
 
@@ -28,10 +28,14 @@ export default function NotesPage() {
   return (
     <div className="container-x pt-28 pb-24">
       <Reveal>
-        <header className="flex max-w-3xl flex-col items-start">
-          <PageBackLink />
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <ArrowLeft className="h-4 w-4" /> Back to portfolio
+        </Link>
 
-          <div className="mt-8 inline-flex items-center gap-2 rounded-md border border-border bg-surface/60 px-3 py-1.5 font-mono text-xs">
+        <div className="mt-8 inline-flex items-center gap-2 rounded-md border border-border bg-surface/60 px-3 py-1.5 font-mono text-xs">
           <span className="h-2 w-2 rounded-full bg-accent" />
           <span className="text-accent">notes.md</span>
           <span className="text-muted-foreground/40">—</span>
@@ -46,7 +50,6 @@ export default function NotesPage() {
           architecture and the details that make apps feel great — written down
           as I learn them.
         </p>
-        </header>
       </Reveal>
 
       {published.length === 0 ? (

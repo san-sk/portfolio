@@ -19,7 +19,6 @@ import {
   Sparkles,
   Gauge,
   Layers3,
-  Workflow,
 } from "lucide-react";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -66,13 +65,12 @@ export function CommandPalette({
   const items: Item[] = useMemo(
     () => [
       { label: "Home", hint: "Top", icon: Home, action: () => go("#top") },
+      { label: "Expertise", hint: "Domains", icon: Layers, action: () => go("#expertise") },
       { label: "Featured Projects", hint: "Case studies", icon: Sparkles, action: () => go("#projects"), liteHidden: true },
       { label: "Experience", hint: "Journey", icon: Briefcase, action: () => go("#experience"), liteHidden: true },
-      { label: "Approach", hint: "How I think about systems", icon: Workflow, action: () => go("#approach"), keywords: "architecture system design trade-offs" },
-      { label: "Expertise", hint: "Domains", icon: Layers, action: () => go("#expertise") },
+      { label: "Work with me", hint: "Mentorship & more", icon: HeartHandshake, action: () => go("#services"), keywords: "coaching mentorship hire freelance workshop materials" },
       { label: "Notes", hint: "Writing", icon: BookOpen, action: () => go("/notes"), keywords: "blog articles writing" },
       { label: "Résumé", hint: "View & download", icon: FileText, action: () => go("/resume"), liteHidden: true },
-      { label: "Work with me", hint: "Mentorship & more", icon: HeartHandshake, action: () => go("/work-with-me"), keywords: "coaching mentorship hire freelance workshop materials services" },
       { label: "Contact", hint: "Say hello", icon: Mail, action: () => go("#contact") },
       { label: "GitHub", hint: `@${site.socials.githubUser}`, icon: Github, action: () => go(site.socials.github), external: true },
       { label: "LinkedIn", hint: "Connect", icon: Linkedin, action: () => go(site.socials.linkedin), external: true },
