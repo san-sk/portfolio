@@ -27,17 +27,20 @@ const viewInitScript = `
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.title} · Kotlin, Compose, KMP`,
+    default: `${site.title} · Mobile, KMP & Systems`,
     template: `%s · ${site.name}`,
   },
   description: site.description,
   keywords: [
-    "Android Engineer",
+    "Software Engineer",
+    "Senior Software Engineer",
+    "Product Engineer",
+    "Mobile Engineer",
     "Kotlin",
+    "Kotlin Multiplatform",
     "Jetpack Compose",
     "Compose Multiplatform",
-    "Kotlin Multiplatform",
-    "Senior Android Developer",
+    "Android Engineer",
     "Santhanam K",
   ],
   authors: [{ name: site.fullName, url: site.url }],
@@ -46,7 +49,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: site.url,
-    title: `${site.title} · Kotlin, Compose, KMP`,
+    title: `${site.title} · Mobile, KMP & Systems`,
     description: site.description,
     siteName: site.name,
   },
@@ -78,12 +81,15 @@ const jsonLd = {
   email: site.email,
   sameAs: [site.socials.github, site.socials.linkedin],
   knowsAbout: [
-    "Android",
+    "Software Engineering",
     "Kotlin",
+    "Kotlin Multiplatform",
     "Jetpack Compose",
     "Compose Multiplatform",
-    "Kotlin Multiplatform",
     "Mobile Architecture",
+    "Backend & APIs",
+    "Application Security",
+    "AI-Assisted Development",
   ],
 };
 

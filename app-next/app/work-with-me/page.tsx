@@ -1,22 +1,44 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, Check } from "lucide-react";
-import { SpotlightCard } from "@/components/magic/spotlight-card";
 import { Reveal } from "@/components/magic/reveal";
-import { Section } from "@/components/section";
+import { PageBackLink } from "@/components/nav/page-back";
+import { SpotlightCard } from "@/components/magic/spotlight-card";
 import { services } from "@/data/services";
 import { site } from "@/lib/site";
 
-export function Services() {
+export const metadata: Metadata = {
+  title: "Work with me",
+  description:
+    "Beyond full-time work — 1:1 mentorship for Android engineers, contract app development, and hands-on team workshops on Compose, architecture and performance.",
+  alternates: { canonical: `${site.url}/work-with-me` },
+};
+
+export default function WorkWithMePage() {
   return (
-    <Section
-      id="services"
-      file="services.kt"
-      eyebrow="Work with me"
-      title="Ways we can build together"
-      intro="Beyond full-time work, I mentor engineers, build apps, and share what I learn. If any of these fit, my inbox is open."
-      collapsible
-    >
-      <div className="grid gap-4 md:grid-cols-2">
+    <div className="container-x pt-28 pb-24">
+      <Reveal>
+        <header className="flex max-w-3xl flex-col items-start">
+          <PageBackLink />
+
+          <div className="mt-8 inline-flex items-center gap-2 rounded-md border border-border bg-surface/60 px-3 py-1.5 font-mono text-xs">
+          <span className="h-2 w-2 rounded-full bg-accent" />
+          <span className="text-accent">services.kt</span>
+          <span className="text-muted-foreground/40">—</span>
+          <span className="text-muted-foreground">Work with me</span>
+        </div>
+
+        <h1 className="mt-4 max-w-3xl text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
+          Ways we can build together
+        </h1>
+        <p className="mt-4 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
+          Beyond full-time work, I mentor engineers, build apps, and share what
+          I learn. If any of these fit, my inbox is open.
+        </p>
+        </header>
+      </Reveal>
+
+      <div className="mt-14 grid gap-4 md:grid-cols-2">
         {services.map((s, i) => {
           const Icon = s.icon;
           const href =
@@ -51,9 +73,9 @@ export function Services() {
                     <Icon className="h-5 w-5" />
                   </span>
                   <div>
-                    <h3 className="text-lg font-semibold tracking-tight">
+                    <h2 className="text-lg font-semibold tracking-tight">
                       {s.title}
-                    </h3>
+                    </h2>
                     <p className="font-mono text-xs text-muted-foreground">
                       {s.tagline}
                     </p>
@@ -66,7 +88,10 @@ export function Services() {
 
                 <ul className="mt-5 space-y-2">
                   {s.points.map((p) => (
-                    <li key={p} className="flex items-center gap-2 text-sm text-foreground/90">
+                    <li
+                      key={p}
+                      className="flex items-center gap-2 text-sm text-foreground/90"
+                    >
                       <Check className="h-4 w-4 shrink-0 text-accent" />
                       {p}
                     </li>
@@ -79,6 +104,6 @@ export function Services() {
           );
         })}
       </div>
-    </Section>
+    </div>
   );
 }

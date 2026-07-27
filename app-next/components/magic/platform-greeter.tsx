@@ -1,12 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-// A friendly Android-style robot waving hello, with an Apple buddy peeking out
-// from behind (a little hide-and-seek). The cycling greetings nod to Android +
-// iOS work and an AI-first workflow.
+// Android robot with Kotlin at its heart, plus an Apple buddy peeking behind.
 const greetings = [
   "Hi there!",
   "Vanakkam!",
@@ -28,6 +26,7 @@ export function PlatformGreeter({
 }) {
   const reduce = useReducedMotion();
   const [i, setI] = useState(0);
+  const kotlinGrad = useId().replace(/:/g, "");
 
   useEffect(() => {
     if (reduce) return;
@@ -56,13 +55,13 @@ export function PlatformGreeter({
         }
     : reduce
       ? undefined
-      : { x: [0, -16, 0, 0], rotate: [-6, -12, -6, -6] };
+      : { x: [0, -10, 0], rotate: [-6, -10, -6] };
 
   const appleTrans = active
     ? phase === "throw"
       ? { duration: 0.95, ease: [0.5, 0, 0.9, 0.4] as const }
       : { duration: 1.3, ease: [0.34, 1.35, 0.5, 1] as const }
-    : { duration: 5, repeat: Infinity, repeatDelay: 0.6, ease: "easeInOut" as const };
+    : { duration: 6, repeat: Infinity, repeatDelay: 0.4, ease: "easeInOut" as const };
 
   // The robot reacts: crouch-and-launch on throw, a settle bob on catch.
   const robotAnim = active
@@ -75,7 +74,7 @@ export function PlatformGreeter({
 
   const robotTrans = active
     ? { duration: 0.95, ease: "easeOut" as const }
-    : { duration: 4, repeat: Infinity, ease: "easeInOut" as const };
+    : { duration: 5, repeat: Infinity, ease: "easeInOut" as const };
 
   // The throwing/catching arm swings up on cue, otherwise waves on a loop.
   const armAnim = active
@@ -88,7 +87,7 @@ export function PlatformGreeter({
 
   const armTrans = active
     ? { duration: 0.9, ease: "easeOut" as const }
-    : { duration: 1.8, repeat: Infinity, repeatDelay: 1.3, ease: "easeInOut" as const };
+    : { duration: 2.2, repeat: Infinity, repeatDelay: 1.6, ease: "easeInOut" as const };
 
   return (
     <div className={cn("pointer-events-none relative select-none", className)}>
@@ -135,6 +134,19 @@ export function PlatformGreeter({
           animate={robotAnim}
           transition={robotTrans}
         >
+          <defs>
+            <linearGradient
+              id={kotlinGrad}
+              x1="0%"
+              y1="100%"
+              x2="100%"
+              y2="0%"
+            >
+              <stop offset="0%" stopColor="#7F52FF" />
+              <stop offset="50%" stopColor="#C711E1" />
+              <stop offset="100%" stopColor="#F88909" />
+            </linearGradient>
+          </defs>
           <g stroke="currentColor" strokeWidth="6" strokeLinecap="round" fill="none">
             <line x1="72" y1="52" x2="60" y2="33" />
             <line x1="128" y1="52" x2="140" y2="33" />
@@ -143,6 +155,17 @@ export function PlatformGreeter({
           <circle cx="82" cy="80" r="6.5" fill="#ffffff" />
           <circle cx="118" cy="80" r="6.5" fill="#ffffff" />
           <rect x="55" y="120" width="90" height="72" rx="18" fill="currentColor" />
+          {/* Kotlin mark — sits on the robot's chest and moves with the body */}
+          <g transform="translate(100, 156)">
+            <circle r="14" fill="#ffffff" fillOpacity="0.94" />
+            <g transform="translate(-8, -8) scale(0.125)">
+              <path
+                fill={`url(#${kotlinGrad})`}
+                d="M0 128L64 64L0 0h32l64 64-64 64H0z"
+              />
+              <path fill={`url(#${kotlinGrad})`} d="M96 0h32L128 32 96 0z" />
+            </g>
+          </g>
           <rect x="72" y="188" width="15" height="30" rx="7.5" fill="currentColor" />
           <rect x="113" y="188" width="15" height="30" rx="7.5" fill="currentColor" />
           <rect x="150" y="124" width="16" height="54" rx="8" fill="currentColor" />

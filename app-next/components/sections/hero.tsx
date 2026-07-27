@@ -106,14 +106,14 @@ export function Hero() {
             className="mt-6 font-mono text-sm text-accent"
           >
             <span className="text-muted-foreground">{"// "}</span>
-            Senior Android Engineer · Kotlin · Compose · KMP
+            Senior Software Engineer · Mobile · Kotlin/KMP · AI-assisted
           </motion.p>
 
           <motion.h1
             variants={reduce ? undefined : item}
             className="mt-5 text-balance text-[clamp(2.75rem,8.5vw,7.5rem)] font-semibold leading-[0.98] tracking-[-0.03em]"
           >
-            I build apps
+            I build products
             <br />
             that feel{" "}
             <GradientText>inevitable.</GradientText>
@@ -132,9 +132,9 @@ export function Hero() {
             className="mt-7 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground sm:text-xl"
           >
             I&rsquo;m <span className="font-medium text-foreground">{site.fullName}</span>.
-            Seven years turning Kotlin, Jetpack Compose &amp; Kotlin Multiplatform
-            into products that feel effortless — obsessed with the details most
-            people never notice.
+            Seven years building secure, high-scale products — from a 50M-install
+            VPN to cross-platform Kotlin/KMP apps and the tooling that ships them
+            — obsessed with the details most people never notice.
           </motion.p>
 
           <motion.div
